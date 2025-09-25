@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Asynchronous Callback Simulation</title>
+</head>
+<body>
+  <h2>Fetch Data Simulation</h2>
+
+  <!-- Button to start fetching -->
+  <button onclick="startFetching()">Fetch Data</button>
+
+  <p id="output"></p>
+
+  <script>
+    // Function to simulate fetching data
+    function fetchData(url, callback) {
+      document.getElementById("output").innerText = "Fetching from: " + url;
+
+      setTimeout(() => {
+        // Simulate success or failure
+        let success = true;  // change to false to test error
+
+        if (success) {
+          callback(null, { data: "Sample Data" });
+        } else {
+          callback("Network Error", null);
+        }
+      }, 2000);
+    }
+
+    // Start fetching when button is clicked
+    function startFetching() {
+      fetchData("https://example.com/api", function(err, response) {
+        if (err) {
+          document.getElementById("output").innerText = "Error: " + err;
+        } else {
+          document.getElementById("output").innerText = "Response: " + JSON.stringify(response);//converts a JavaScript object into a string.
+        }
+      });
+    }
+  </script>
+</body>
+</html>

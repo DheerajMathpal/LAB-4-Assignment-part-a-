@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Callback Simulation</title>
+</head>
+<body>
+  <h2>Callback File Simulation</h2>
+  <button onclick="startReading()">Read File</button>
+
+  <p id="output"></p>
+
+  <script>
+    function readData(callback) {
+        const fileExists = true;  // change to false to simulate error
+        const fileContent = "This is file content";
+
+        setTimeout(() => {
+            if (fileExists) {
+                callback(null, fileContent);
+            } else {
+                callback("Error: File does not exist", null);
+            }
+        }, 2000);//2000 ms = 2 seconds
+    }
+
+    function startReading() {
+        document.getElementById("output").innerText = "Reading file...";
+        readData((err, data) => {
+            if (err) {
+                document.getElementById("output").innerText = err;
+            } else {
+                document.getElementById("output").innerText = "File Data: " + data;
+            }
+        });
+    }
+  </script>
+</body>
+</html>
